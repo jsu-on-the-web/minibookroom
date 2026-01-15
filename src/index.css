@@ -1,5 +1,15 @@
+@import 'imports.css';
+
+
+/*=============================================
+=            Standard Styles            =
+=============================================*/
+
+
+
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Oxygen, Helvetica, Arial, system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -66,3 +76,38 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+/*=============================================
+=            Media queries            =
+=============================================*/
+
+/* ======= Mobile Devices ======= */
+@media (max-width: 640px) {
+    body {
+      padding: 1em;
+    }
+    h1 {
+      font-size: 2.4em;
+    }
+  }
+
+/* ======= Tablets ======= */
+@media (min-width: 641px) and (max-width: 1024px) {
+    body {
+      padding: 2em;
+    }
+    h1 {
+      font-size: 2.8em;
+    }
+  }
+
+/* ======= Laptops/Desktops ======= */
+@media (min-width: 1025px) {
+    body {
+      padding: 3em;
+    }
+    h1 {
+      font-size: 3.2em;
+    }
+  }

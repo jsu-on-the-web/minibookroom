@@ -1,3 +1,6 @@
-@tailwind base;
-@tailwind components;
+/* Library imports */
+@import "tailwindcss/preflight";
 @tailwind utilities;
+
+/* Asset imports */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oxygen:wght@300;400;700&display=swap');
