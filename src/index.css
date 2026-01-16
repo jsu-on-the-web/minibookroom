@@ -111,3 +111,18 @@ button:focus-visible {
       font-size: 3.2em;
     }
   }
+
+  
+  /*=============================================
+  =            Font Settings            =
+  =============================================*/
+  
+  h1, h3 {
+    font-family: Montserrat, sans-serif;
+  }
+
+  h2 {
+    font-family: Lora, serif;
+  }
+  
+  
