@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import './App.css'
-import './index.css'
+import './styles/App.scss'
 import Card from './ui-elements/Card'
 
 function App() {
