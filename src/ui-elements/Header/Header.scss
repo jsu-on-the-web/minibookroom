@@ -1,12 +1,8 @@
 @use '../../styles/imports.scss';
-    .header {
-        @apply bg-white shadow-md;
-    }
-
-    .header-container {
-        @apply w-full px-4 py-4;
-    }
-
-    .header-nav {
-        @apply flex items-center justify-between;
+    .header-title {
+        /* clamp function notes:
+        1. minimum size
+        2. preferred size (we'd like this so long as it's not larger than maximum size)
+        3. maximum size */
+        font-size: clamp(1.5rem, 3vw, 2.2rem)
     }

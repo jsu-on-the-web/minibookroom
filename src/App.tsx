@@ -13,27 +13,38 @@ interface Book {
 }
 
 const App = () => {
-  // Run a test fetch to grab a single book from OpenLibrary
   const [currentBooks, setCurrentBooks] = useState<Book[]>([]);
   const [currentSearch, setCurrentSearch] = useState("");
 
   useEffect(() => {
     // Search with currentSearch as a param
-    fetchBook(currentSearch).then(setCurrentBooks);
-  }, [currentSearch]);
+    const searchBooks = async () => {
+      try {
+        const books = await fetchBook(currentSearch);
+        setCurrentBooks(books);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    if (currentSearch) searchBooks();
+  }, [currentSearch, setCurrentBooks]);
 
   return (
     <>
       <section className="min-h-screen app bg-stone-200">
         <Header title="Mini Bookroom" />
         <section className="flex flex-col items-center p-4 app-container">
-          <section className='flex flex-row gap-2 items-between searchbar-container'>
+          <h2>Search For Your Next Read</h2>
+          {/*  ===== Search Bar ===== */}
+          <section className='flex md:flex-row md:gap-2 md:items-between searchbar-container'>
             <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" />
-            <button className="searchbutton" onClick={() => { setCurrentSearch((document.getElementById('searchbar-books') as HTMLInputElement)?.value || '') }}>Search</button>
+            <button className="rounded-lg searchbutton bg-stone-400 hover:bg-stone-500 hover:border-2" onClick={() => {
+              setCurrentSearch((document.getElementById('searchbar-books') as HTMLInputElement)?.value || '')
+            }}>Search</button>
           </section>
           <div className="flex flex-wrap justify-center gap-4 mt-4 card-container">
-            {currentBooks && currentBooks.map((book, index) => (
+              {currentBooks && currentBooks.map((book, index) => (
               <Card
                 key={index}
                 title={book.title || "TITLE MISSING"}
@@ -41,7 +52,7 @@ const App = () => {
                 cover={book.imageUrl || CoverPlaceholder}
                 onClick={() => { console.log(`Clicked on ${book.title}`) }}
               />
-            ))};
+            ))}
           </div>
         </section>
       </section>
