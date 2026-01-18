@@ -6,7 +6,8 @@ export async function fetchBook(currentSearch: string) {
           // TODO: Code in way to adjust the limit or enable pagination
         const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(currentSearch)}&limit=10`);
         const data = await response.json();
-          if (data.docs && data.docs.length > 0) {
+        if (data.docs && data.docs.length > 0) {
+            console.log(data.docs);
             result = data.docs;
             return result;
         } else {

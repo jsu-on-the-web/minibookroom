@@ -2,14 +2,21 @@
 
 .card {
     @apply flex flex-col content-center bg-white rounded-lg shadow-lg;
-    max-width: 20vw;
+    width: 15vw;
+    height: 40vh;
     text-wrap: break-word;
 }
 
 .card-cover {
-    @apply w-full h-auto rounded-t-lg;
+    @apply rounded-t-lg;
+    width: 100%;
+    height: 60%;
+    object-fit: scale-down;
 }
 
 .card-content {
-    @apply flex-auto p-4 text-black;
+    @apply flex-auto p-4 text-black overflow-hidden;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
