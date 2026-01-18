@@ -1,20 +1,41 @@
 
+// Little helper interface that matches the form of the response but only the bits we need
+interface GoogleBook {
+    volumeInfo?: {
+        title?: string;
+        authors?: string[];
+        imageLinks?: {
+            thumbnail?: string;
+        };
+    };
+}
+
 export async function fetchBook(currentSearch: string) {
     let result = [];
+    // TODO: Add option to allow the user to specify how many books they want per "page"?
     try {
-          // For now we return 10 results
-          // TODO: Code in way to adjust the limit or enable pagination
-        const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(currentSearch)}&limit=10`);
+        const response = await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(currentSearch)}&maxResults=10`
+        );
         const data = await response.json();
-        if (data.docs && data.docs.length > 0) {
-            console.log(data.docs);
-            result = data.docs;
+        
+        if (data.items && data.items.length > 0) {
+            // Now we grab the relevant details from the search results and map them to our interface in App.tsx (consider moving it to a dedicated
+            // interface file?)
+            // Look at the JSON response in console to see
+            result = data.items.map((item: GoogleBook) => ({
+                title: item.volumeInfo?.title || "TITLE MISSING",
+                author_name: item.volumeInfo?.authors || [],
+                imageUrl: item.volumeInfo?.imageLinks?.thumbnail
+            }));
+            console.log(result);
             return result;
         } else {
-            console.warn(`No book found for {currentSearch}`);
+            console.warn(`No books found for "${currentSearch}"`);
+            return [];
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Error fetching book data:", error);
         return [];
-      }
     }
+}

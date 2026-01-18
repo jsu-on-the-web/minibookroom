@@ -8,7 +8,7 @@ import CoverPlaceholder from './assets/cover-placeholder.svg';
 interface Book {
   title: string,
   author_name: string[],
-  cover_i?: number
+  imageUrl?: string
 }
 
 const App = () => {
@@ -36,7 +36,7 @@ const App = () => {
               key={index}
               title={book.title || "TITLE MISSING"}
               author={book.author_name?.[0] || "AUTHOR MISSING"}
-              cover={book.cover_i != null ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : CoverPlaceholder}
+              cover={book.imageUrl || CoverPlaceholder}
               onClick={() => { console.log(`Clicked on ${book.title}`) }}
             />
           ))};
