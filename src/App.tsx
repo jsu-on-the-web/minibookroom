@@ -6,6 +6,7 @@ import CoverPlaceholder from './assets/cover-placeholder.svg';
 import { Header } from './ui-elements/Header/Header';
 import { MainMenu } from './ui-elements/MainMenu/MainMenu';
 import { Button } from './ui-elements/Button/Button';
+import { RadioButton } from './ui-elements/RadioButton/RadioButton';
 
 // Interfaces for prototyping
 interface Book {
@@ -45,13 +46,58 @@ const App = () => {
           <h2 className="searchbar-title text-2xl pb-4 font-bold font-[Lora]">Search For Your Next Read</h2>
 
           {/*  ====================================================== Search Bar ====================================================== */}
-          <section className='flex h-8 md:flex-row md:gap-2 md:items-between searchbar-container'>
-            <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" />
-            <Button className="searchbar__button" text='Search' onClick={() => {
-              setIsAnimatingOut(true);
-              setTimeout(() => setCurrentBooks([]), 300); // Setting a timeout to clear current books so the new details can come in. 
-              setCurrentSearch((document.getElementById('searchbar-books') as HTMLInputElement)?.value || '')
-            }} />
+          <section className="flex flex-col items-center w-full search-container md:w-2/3 lg:w-1/2">
+            <section className='flex h-8 md:flex-row items-between md:gap-2 md:items-center searchbar-container'>
+              <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" />
+              <Button className="searchbar__button" text='Search' onClick={() => {
+                setIsAnimatingOut(true);
+                setTimeout(() => setCurrentBooks([]), 300); // Setting a timeout to clear current books so the new details can come in.
+                setCurrentSearch((document.getElementById('searchbar-books') as HTMLInputElement)?.value || '')
+              }} />
+            </section>
+            <section className='flex flex-row items-center justify-center w-full mt-4 search-options-container'>
+              {/* ==== Search Options ==== */}
+
+              <RadioButton
+                label="Title"
+                name="search-option"
+                value="title"
+                checked={true}
+                onChange={() => { console.log("Title selected") }}
+                className="mr-4"
+              />
+              <RadioButton
+                label="Author"
+                name="search-option"
+                value="author"
+                checked={false}
+                onChange={() => { console.log("Author selected") }}
+                className="mr-4"
+              />
+              <RadioButton
+                label="ISBN"
+                name="search-option"
+                value="isbn"
+                checked={false}
+                onChange={() => { console.log("ISBN selected") }}
+                className="mr-4"
+              />
+              <RadioButton
+                label="Subject"
+                name="search-option"
+                value="subject"
+                checked={false}
+                onChange={() => { console.log("Subject selected") }}
+                className="mr-4"
+              />
+              <RadioButton
+                label="Publisher"
+                name="search-option"
+                value="publisher"
+                checked={false}
+                onChange={() => { console.log("Publisher selected") }}
+              />
+            </section>
           </section>
 
           {/*  ====================================================== Card Container ====================================================== */}
