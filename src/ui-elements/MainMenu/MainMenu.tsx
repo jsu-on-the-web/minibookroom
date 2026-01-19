@@ -12,15 +12,15 @@ export const MainMenu = ({ isOpen, onClose }: MainMenuProps) => {
         <>
             {/* Keeping the styles in the scss file so we can have cleaner JSX considering the complexity of the styles */}
             <div className={`main-menu ${isOpen ? 'main-menu--open' : ''}`}><div className="main-menu__header">
-                    <button className="main-menu__close" onClick={onClose}>
+                    <button className="main-menu__close p-2" onClick={onClose}>
                         <FontAwesomeIcon icon={faTimes} />
                     </button>
                 </div>
-                <ul className="main-menu__list flex items-center flex-col gap-4 font-bold font-[Lora] text-xl">
-                    <li><FontAwesomeIcon icon={faHome} /> Home</li>
-                    <li><a href="#"><FontAwesomeIcon icon={faSearch} /> Search</a></li>
-                    <li><FontAwesomeIcon icon={faBook} /> My Books</li>
-                    <li><FontAwesomeIcon icon={faCog} /> Settings</li>
+                <ul className="main-menu__list flex flex-col gap-4 font-bold font-[Lora] text-xl">
+                    <li className="main-menu__item"><FontAwesomeIcon icon={faHome} /> Home</li>
+                    <li className="main-menu__item"><a href="#"><FontAwesomeIcon icon={faSearch} /> Search</a></li>
+                    <li className="main-menu__item"><FontAwesomeIcon icon={faBook} /> My Books</li>
+                    <li className="main-menu__item"><FontAwesomeIcon icon={faCog} /> Settings</li>
                 </ul>
             </div>
         </>
