@@ -67,7 +67,7 @@ const App = () => {
                 if (searchInputRef.current) searchInputRef.current.value = ''; // Clear the search bar after searching
               }} />
             </section>
-            <section className='flex flex-row items-center justify-center w-full mt-4 search-options-container'>
+            <section className='grid grid-cols-2 gap-4 w-full mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container'>
               {/* ==== Search Options ==== */}
               {/* TODO: Consider creating a RadioButtonGroup for this for extra cleanliness */}
 
@@ -77,7 +77,6 @@ const App = () => {
                 value="all"
                 checked={currentSearchParam === "all"}
                 onChange={() => { setCurrentSearchParam("all"); }}
-                className="mr-4"
               />
               <RadioButton
                 label="Title"
@@ -85,7 +84,6 @@ const App = () => {
                 value="title"
                 checked={currentSearchParam === "title"}
                 onChange={() => { setCurrentSearchParam("title"); }}
-                className="mr-4"
               />
               <RadioButton
                 label="Author"
@@ -93,7 +91,6 @@ const App = () => {
                 value="author"
                 checked={currentSearchParam === "author"}
                 onChange={() => { setCurrentSearchParam("author"); }}
-                className="mr-4"
               />
               <RadioButton
                 label="ISBN"
@@ -101,7 +98,6 @@ const App = () => {
                 value="isbn"
                 checked={currentSearchParam === "isbn"}
                 onChange={() => { setCurrentSearchParam("isbn"); }}
-                className="mr-4"
               />
               <RadioButton
                 label="Subject"
@@ -109,7 +105,6 @@ const App = () => {
                 value="subject"
                 checked={currentSearchParam === "subject"}
                 onChange={() => { setCurrentSearchParam("subject"); }}
-                className="mr-4"
               />
               <RadioButton
                 label="Publisher"
