@@ -17,15 +17,18 @@ const App = () => {
   const [currentBooks, setCurrentBooks] = useState<Book[]>([]);
   const [currentSearch, setCurrentSearch] = useState("");
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
   useEffect(() => {
     // Search with currentSearch as a param
     const searchBooks = async () => {
       try {
         const books = await fetchBook(currentSearch);
+        setIsAnimatingOut(false);
         setCurrentBooks(books);
       } catch (error) {
         console.error(error);
+        setIsAnimatingOut(false);
       }
     };
 
@@ -38,15 +41,17 @@ const App = () => {
         <Header title="Mini Bookroom" onMenuClick={() => setMenuOpen(!isMenuOpen)} />
         <MainMenu isOpen={isMenuOpen} onClose={() => setMenuOpen(false)} />
         <section className="flex flex-col items-center p-4 app-container">
-          <h2>Search For Your Next Read</h2>
+          <h2 className="searchbar-title text-2xl pb-4 font-bold font-[Lora]">Search For Your Next Read</h2>
           {/*  ===== Search Bar ===== */}
           <section className='flex md:flex-row md:gap-2 md:items-between searchbar-container'>
             <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" />
             <button className="rounded-lg searchbar__button bg-stone-400 hover:bg-stone-500 hover:border-2" onClick={() => {
+              setIsAnimatingOut(true);
+              setTimeout(() => setCurrentBooks([]), 300); // Setting a timeout to clear current books so the new details can come in. 
               setCurrentSearch((document.getElementById('searchbar-books') as HTMLInputElement)?.value || '')
             }}>Search</button>
           </section>
-          <div className="flex flex-wrap justify-center gap-4 mt-4 card-container">
+          <div className={`flex flex-wrap justify-center gap-4 mt-4 card-container ${isAnimatingOut ? 'card-container--animating-out' : ''}`}>
               {currentBooks && currentBooks.map((book, index) => (
               <Card
                 key={index}
