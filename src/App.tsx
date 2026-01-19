@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './styles/App.scss'
 import Card from './ui-elements/Card/Card'
 import { fetchBook } from './SearchFunctions';
@@ -18,9 +18,13 @@ interface Book {
 const App = () => {
   const [currentBooks, setCurrentBooks] = useState<Book[]>([]);
   const [currentSearch, setCurrentSearch] = useState("");
+  const [currentSearchParam, setCurrentSearchParam] = useState("all");
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-  const [currentSearchParam, setCurrentSearchParam] = useState("all");
+  const [hasSearchedBefore, setHasSearchedBefore] = useState(false);
+
+  const searchInputRef = useRef<HTMLInputElement>(null); // Using a ref for grabbing the search bar and its values
 
   /**--------------------------------------------
    *     useEffect for performing a search
@@ -39,7 +43,8 @@ const App = () => {
     };
 
     if (currentSearch) searchBooks();
-  }, [currentSearch, currentSearchParam, setCurrentBooks]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSearch]);
 
 
   return (
@@ -53,11 +58,13 @@ const App = () => {
           {/*  ====================================================== Search Bar ====================================================== */}
           <section className="flex flex-col items-center w-full search-container md:w-2/3 lg:w-1/2">
             <section className='flex h-8 md:flex-row items-between md:gap-2 md:items-center searchbar-container'>
-              <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" />
+              <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" ref={searchInputRef} />
               <Button className="searchbar__button" text='Search' onClick={() => {
+                setCurrentSearch(searchInputRef.current?.value || '')
                 setIsAnimatingOut(true);
+                setHasSearchedBefore(true);
                 setTimeout(() => setCurrentBooks([]), 300); // Setting a timeout to clear current books so the new details can come in.
-                setCurrentSearch((document.getElementById('searchbar-books') as HTMLInputElement)?.value || '')
+                if (searchInputRef.current) searchInputRef.current.value = ''; // Clear the search bar after searching
               }} />
             </section>
             <section className='flex flex-row items-center justify-center w-full mt-4 search-options-container'>
@@ -125,6 +132,14 @@ const App = () => {
                 onClick={() => { console.log(`Clicked on ${book.title}`) }}
               />
             ))}
+
+            {/* If no books are found after a search, show a shruggie and a message */}
+            {currentBooks.length === 0 && !isAnimatingOut && hasSearchedBefore && (
+              <div className="flex flex-col items-center justify-center mt-8 no-results-container">
+                <span className="text-6xl text-gray-400">¯\_(ツ)_/¯</span>
+                <p className="mt-2 text-lg text-gray-600">No books found. Try a different search?</p>
+              </div>
+            )}
           </section>
         </section>
       </section>
