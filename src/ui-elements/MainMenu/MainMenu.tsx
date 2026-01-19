@@ -1,0 +1,28 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faHome, faSearch, faBook, faCog } from '@fortawesome/free-solid-svg-icons';
+import './MainMenu.scss';
+
+interface MainMenuProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export const MainMenu = ({ isOpen, onClose }: MainMenuProps) => {
+    return (
+        <>
+            {/* Keeping the styles in the scss file so we can have cleaner JSX considering the complexity of the styles */}
+            <div className={`main-menu ${isOpen ? 'main-menu--open' : ''}`}><div className="main-menu__header">
+                    <button className="main-menu__close" onClick={onClose}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </button>
+                </div>
+                <ul className="main-menu__list flex items-center flex-col gap-4 font-bold font-[Lora] text-xl">
+                    <li><FontAwesomeIcon icon={faHome} /> Home</li>
+                    <li><a href="#"><FontAwesomeIcon icon={faSearch} /> Search</a></li>
+                    <li><FontAwesomeIcon icon={faBook} /> My Books</li>
+                    <li><FontAwesomeIcon icon={faCog} /> Settings</li>
+                </ul>
+            </div>
+        </>
+    );
+}
