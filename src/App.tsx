@@ -20,12 +20,16 @@ const App = () => {
   const [currentSearch, setCurrentSearch] = useState("");
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [currentSearchParam, setCurrentSearchParam] = useState("all");
 
+  /**--------------------------------------------
+   *     useEffect for performing a search
+   *---------------------------------------------**/
   useEffect(() => {
     // Search with currentSearch as a param
     const searchBooks = async () => {
       try {
-        const books = await fetchBook(currentSearch);
+        const books = await fetchBook(currentSearch, currentSearchParam);
         setIsAnimatingOut(false);
         setCurrentBooks(books);
       } catch (error) {
@@ -35,7 +39,8 @@ const App = () => {
     };
 
     if (currentSearch) searchBooks();
-  }, [currentSearch, setCurrentBooks]);
+  }, [currentSearch, currentSearchParam, setCurrentBooks]);
+
 
   return (
     <>
@@ -43,7 +48,7 @@ const App = () => {
         <Header title="Mini Bookroom" onMenuClick={() => setMenuOpen(!isMenuOpen)} />
         <MainMenu isOpen={isMenuOpen} onClose={() => setMenuOpen(false)} />
         <section className="flex flex-col items-center p-4 app-container">
-          <h2 className="searchbar-title text-2xl pb-4 font-bold font-[Lora]">Search For Your Next Read</h2>
+          <h2 className="searchbar-title text-2xl mb-4 font-bold font-[Lora]">Search For Your Next Read</h2>
 
           {/*  ====================================================== Search Bar ====================================================== */}
           <section className="flex flex-col items-center w-full search-container md:w-2/3 lg:w-1/2">
@@ -57,45 +62,54 @@ const App = () => {
             </section>
             <section className='flex flex-row items-center justify-center w-full mt-4 search-options-container'>
               {/* ==== Search Options ==== */}
+              {/* TODO: Consider creating a RadioButtonGroup for this for extra cleanliness */}
 
+              <RadioButton
+                label="All"
+                name="search-option"
+                value="all"
+                checked={currentSearchParam === "all"}
+                onChange={() => { setCurrentSearchParam("all"); }}
+                className="mr-4"
+              />
               <RadioButton
                 label="Title"
                 name="search-option"
                 value="title"
-                checked={true}
-                onChange={() => { console.log("Title selected") }}
+                checked={currentSearchParam === "title"}
+                onChange={() => { setCurrentSearchParam("title"); }}
                 className="mr-4"
               />
               <RadioButton
                 label="Author"
                 name="search-option"
                 value="author"
-                checked={false}
-                onChange={() => { console.log("Author selected") }}
+                checked={currentSearchParam === "author"}
+                onChange={() => { setCurrentSearchParam("author"); }}
                 className="mr-4"
               />
               <RadioButton
                 label="ISBN"
                 name="search-option"
                 value="isbn"
-                checked={false}
-                onChange={() => { console.log("ISBN selected") }}
+                checked={currentSearchParam === "isbn"}
+                onChange={() => { setCurrentSearchParam("isbn"); }}
                 className="mr-4"
               />
               <RadioButton
                 label="Subject"
                 name="search-option"
                 value="subject"
-                checked={false}
-                onChange={() => { console.log("Subject selected") }}
+                checked={currentSearchParam === "subject"}
+                onChange={() => { setCurrentSearchParam("subject"); }}
                 className="mr-4"
               />
               <RadioButton
                 label="Publisher"
                 name="search-option"
                 value="publisher"
-                checked={false}
-                onChange={() => { console.log("Publisher selected") }}
+                checked={currentSearchParam === "publisher"}
+                onChange={() => { setCurrentSearchParam("publisher"); }}
               />
             </section>
           </section>
