@@ -6,7 +6,7 @@ import CoverPlaceholder from './assets/cover-placeholder.svg';
 import { Header } from './ui-elements/Header/Header';
 import { MainMenu } from './ui-elements/MainMenu/MainMenu';
 import { Button } from './ui-elements/Button/Button';
-import { RadioButton } from './ui-elements/RadioButton/RadioButton';
+import RadioButtonGroup from './ui-elements/RadioButtonGroup/RadioButtonGroup';
 
 // Interfaces for prototyping
 interface Book {
@@ -67,51 +67,22 @@ const App = () => {
                 if (searchInputRef.current) searchInputRef.current.value = ''; // Clear the search bar after searching
               }} />
             </section>
-            <section className='grid w-full grid-cols-2 gap-4 mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container'>
-              {/* ==== Search Options ==== */}
-              <RadioButton
-                label="All"
+
+              <RadioButtonGroup
                 name="search-option"
-                value="all"
-                checked={currentSearchParam === "all"}
-                onChange={() => { setCurrentSearchParam("all"); }}
+                options={[
+                  { value: 'all', label: 'All' },
+                  { value: 'title', label: 'Title' },
+                  { value: 'author', label: 'Author' },
+                  { value: 'isbn', label: 'ISBN' },
+                  { value: 'subject', label: 'Subject' },
+                  { value: 'publisher', label: 'Publisher' },
+                ]}
+                selectedValue={currentSearchParam}
+              onChange={(val) => setCurrentSearchParam(val)}
+              className="grid w-full grid-cols-2 gap-4 mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container"
               />
-              <RadioButton
-                label="Title"
-                name="search-option"
-                value="title"
-                checked={currentSearchParam === "title"}
-                onChange={() => { setCurrentSearchParam("title"); }}
-              />
-              <RadioButton
-                label="Author"
-                name="search-option"
-                value="author"
-                checked={currentSearchParam === "author"}
-                onChange={() => { setCurrentSearchParam("author"); }}
-              />
-              <RadioButton
-                label="ISBN"
-                name="search-option"
-                value="isbn"
-                checked={currentSearchParam === "isbn"}
-                onChange={() => { setCurrentSearchParam("isbn"); }}
-              />
-              <RadioButton
-                label="Subject"
-                name="search-option"
-                value="subject"
-                checked={currentSearchParam === "subject"}
-                onChange={() => { setCurrentSearchParam("subject"); }}
-              />
-              <RadioButton
-                label="Publisher"
-                name="search-option"
-                value="publisher"
-                checked={currentSearchParam === "publisher"}
-                onChange={() => { setCurrentSearchParam("publisher"); }}
-              />
-            </section>
+
           </section>
 
           {/*  ====================================================== Card Container ====================================================== */}

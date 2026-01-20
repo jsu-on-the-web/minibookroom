@@ -22,3 +22,5 @@ export const RadioButton = ({ label, name, value, checked, onChange, className }
         </label>
     );
 }
+
+export default RadioButton;

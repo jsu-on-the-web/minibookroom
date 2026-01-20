@@ -12,7 +12,7 @@ export const MainMenu = ({ isOpen, onClose }: MainMenuProps) => {
         <>
             {/* Keeping the styles in the scss file so we can have cleaner JSX considering the complexity of the styles */}
             <div className={`main-menu ${isOpen ? 'main-menu--open' : ''}`}><div className="main-menu__header">
-                    <button className="main-menu__close p-2" onClick={onClose}>
+                    <button className="p-2 main-menu__close" onClick={onClose}>
                         <FontAwesomeIcon icon={faTimes} />
                     </button>
                 </div>
@@ -26,3 +26,5 @@ export const MainMenu = ({ isOpen, onClose }: MainMenuProps) => {
         </>
     );
 }
+
+export default MainMenu;

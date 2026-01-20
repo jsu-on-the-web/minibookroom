@@ -20,3 +20,5 @@ export const Header: React.FC<HeaderProps> = ({ title, onMenuClick }) => {
         </header>
     );
 }
+
+export default Header;

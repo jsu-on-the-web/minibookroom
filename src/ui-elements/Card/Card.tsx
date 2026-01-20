@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, author, cover, onClick }) => {
     return (
-        <div className="transition-all duration-200 card hover:shadow-lg hover:scale-102" onClick={onClick} style={{ cursor: 'pointer' }}>
+        <div className="transition-all duration-200 card hover:shadow-lg hover:scale-102 mb-3 md:mb-0" onClick={onClick} style={{ cursor: 'pointer' }}>
             {cover && <img src={cover} alt={title} className="card-cover" />}
             <div className="card-content">
                 <h3 className="block text-lg font-bold text-center card-title">{title}</h3>
