@@ -49,14 +49,14 @@ const App = () => {
       <section className="min-h-screen app bg-stone-200">
         <Header title="Mini Bookroom" onMenuClick={() => setMenuOpen(!isMenuOpen)} />
         <MainMenu isOpen={isMenuOpen} onClose={() => setMenuOpen(false)} />
-        <section className="flex flex-col items-center p-4 app-container">
+        <section className="flex flex-col md:gap-2 items-center p-4 app-container">
           <h2 className="searchbar-title text-2xl mb-4 font-bold font-[Lora]">Search For Your Next Read</h2>
 
           {/*  ====================================================== Search Bar ====================================================== */}
           <section className="flex flex-col items-center w-full search-container md:w-2/3 lg:w-1/2">
             <form className='flex h-8 md:flex-row items-between md:gap-2 md:items-center searchbar-container'>
               <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" ref={searchInputRef} />
-              <Button className="searchbar__button" text='Search' onClick={() => {
+              <Button className="searchbar__button ml-2 sm:ml-1" text='Search' onClick={() => {
                 const term = searchInputRef.current?.value || '';
                 performSearch(term);
                 if (searchInputRef.current) searchInputRef.current.value = '';
@@ -75,7 +75,7 @@ const App = () => {
                 ]}
                 selectedValue={currentSearchParam}
                 onChange={(value) => setCurrentSearchParam(value)}
-                className="grid w-full grid-cols-2 gap-4 mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container"
+                className="grid w-full grid-cols-2 gap-4 mt-4 w-20 ml-20 sm:w-1/2 sm:ml-0 md:flex md:flex-row md:items-center md:justify-center search-options-container"
               />
 
           </section>
