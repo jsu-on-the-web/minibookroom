@@ -22,7 +22,8 @@ const RadioButtonGroup: React.FC<RadioButtonGroupProps> = ({
     return (
         <div className={`radio-button-group ${className || ''}`}>
             {options.map((option) => (
-                    <RadioButton
+                <RadioButton
+                    key={option.value}
                     label={option.label}
                     name={name}
                     value={option.value}

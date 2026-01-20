@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import './styles/App.scss'
 import Card from './ui-elements/Card/Card'
 import { fetchBook } from './SearchFunctions';
@@ -17,7 +17,6 @@ interface Book {
 
 const App = () => {
   const [currentBooks, setCurrentBooks] = useState<Book[]>([]);
-  const [currentSearch, setCurrentSearch] = useState("");
   const [currentSearchParam, setCurrentSearchParam] = useState("all");
 
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -26,25 +25,23 @@ const App = () => {
 
   const searchInputRef = useRef<HTMLInputElement>(null); // Using a ref for grabbing the search bar and its values
 
-  /**--------------------------------------------
-   *     useEffect for performing a search
-   *---------------------------------------------**/
-  useEffect(() => {
-    // Search with currentSearch as a param
-    const searchBooks = async () => {
-      try {
-        const books = await fetchBook(currentSearch, currentSearchParam);
-        setIsAnimatingOut(false);
-        setCurrentBooks(books);
-      } catch (error) {
-        console.error(error);
-        setIsAnimatingOut(false);
-      }
-    };
-
-    if (currentSearch) searchBooks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSearch]);
+  // Function to perform the search, triggered when the search button is clicked, or enter is pressed
+  // NOTE: Doing this like this instead of in a useEffect means that we can let the user search for the same term multiple times in a row
+  const performSearch = async (term: string) => {
+    if (!term) return;
+    setIsAnimatingOut(true);
+    setHasSearchedBefore(true);
+    setTimeout(() => setCurrentBooks([]), 300);
+    try {
+      const books = await fetchBook(term, currentSearchParam);
+      setCurrentBooks(books);
+    } catch (error) {
+      console.error(error);
+      setCurrentBooks([]);
+    } finally {
+      setIsAnimatingOut(false);
+    }
+  };
 
 
   return (
@@ -57,16 +54,14 @@ const App = () => {
 
           {/*  ====================================================== Search Bar ====================================================== */}
           <section className="flex flex-col items-center w-full search-container md:w-2/3 lg:w-1/2">
-            <section className='flex h-8 md:flex-row items-between md:gap-2 md:items-center searchbar-container'>
+            <form className='flex h-8 md:flex-row items-between md:gap-2 md:items-center searchbar-container'>
               <input type="text" placeholder="Search for books..." id='searchbar-books' className="px-4 py-2 rounded-lg searchbar-input border-1" ref={searchInputRef} />
               <Button className="searchbar__button" text='Search' onClick={() => {
-                setCurrentSearch(searchInputRef.current?.value || '')
-                setIsAnimatingOut(true);
-                setHasSearchedBefore(true);
-                setTimeout(() => setCurrentBooks([]), 300); // Setting a timeout to clear current books so the new details can come in.
-                if (searchInputRef.current) searchInputRef.current.value = ''; // Clear the search bar after searching
+                const term = searchInputRef.current?.value || '';
+                performSearch(term);
+                if (searchInputRef.current) searchInputRef.current.value = '';
               }} />
-            </section>
+            </form>
 
               <RadioButtonGroup
                 name="search-option"
