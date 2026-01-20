@@ -2,10 +2,22 @@
 
 .card {
     @apply flex flex-col content-center bg-white rounded-lg shadow-lg;
-    width: 15vw;
+    width: 60vw;
     height: 40vh;
     text-wrap: break-word;
     animation: slide-in 0.3s ease-out forwards;
+    
+    @media (min-width: 768px) {
+        width: 30vw;
+    }
+    
+    @media (min-width: 1024px) {
+        width: 20vw;
+    }
+    
+    @media (min-width: 1280px) {
+        width: 15vw;
+    }
 }
 
 .card-cover {

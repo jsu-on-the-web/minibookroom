@@ -67,10 +67,8 @@ const App = () => {
                 if (searchInputRef.current) searchInputRef.current.value = ''; // Clear the search bar after searching
               }} />
             </section>
-            <section className='grid grid-cols-2 gap-4 w-full mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container'>
+            <section className='grid w-full grid-cols-2 gap-4 mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container'>
               {/* ==== Search Options ==== */}
-              {/* TODO: Consider creating a RadioButtonGroup for this for extra cleanliness */}
-
               <RadioButton
                 label="All"
                 name="search-option"
@@ -117,7 +115,7 @@ const App = () => {
           </section>
 
           {/*  ====================================================== Card Container ====================================================== */}
-          <section className={`flex flex-wrap justify-center gap-4 mt-4 card-container ${isAnimatingOut ? 'card-container--animating-out' : ''}`}>
+          <section className={`flex flex-wrap flex-col md:flex-row justify-center md:gap-4 mt-4 card-container ${isAnimatingOut ? 'card-container--animating-out' : ''}`}>
               {currentBooks && currentBooks.map((book, index) => (
               <Card
                 key={index}
