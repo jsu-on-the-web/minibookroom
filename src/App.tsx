@@ -79,8 +79,8 @@ const App = () => {
                   { value: 'publisher', label: 'Publisher' },
                 ]}
                 selectedValue={currentSearchParam}
-              onChange={(val) => setCurrentSearchParam(val)}
-              className="grid w-full grid-cols-2 gap-4 mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container"
+                onChange={(value) => setCurrentSearchParam(value)}
+                className="grid w-full grid-cols-2 gap-4 mt-4 md:flex md:flex-row md:items-center md:justify-center search-options-container"
               />
 
           </section>
